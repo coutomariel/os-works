@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coutomariel.osworks.domain.model.Cliente;
 import com.coutomariel.osworks.domain.repository.ClientesRepository;
+import com.coutomariel.osworks.domain.service.CadastroClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -27,6 +28,9 @@ public class ClienteController {
 
 	@Autowired
 	ClientesRepository clienteRepository;
+	
+	@Autowired
+	CadastroClienteService clienteService;
 	
 	@GetMapping
 	public List<Cliente> listar() {
@@ -45,7 +49,7 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Cliente salvarCliente(@Valid @RequestBody Cliente cliente) {
-		return clienteRepository.save(cliente);
+		return clienteService.salvar(cliente);
 	}
 	
 	@PutMapping("/{id}")
@@ -54,7 +58,7 @@ public class ClienteController {
 			return ResponseEntity.notFound().build();
 		}
 		cliente.setId(id);
-		Cliente response = clienteRepository.save(cliente);
+		Cliente response = clienteService.salvar(cliente);
 		return ResponseEntity.ok(response);
 	}
 	
@@ -63,7 +67,7 @@ public class ClienteController {
 		if(!clienteRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
-		clienteRepository.deleteById(id);
+		clienteService.excluir(id);
 		return ResponseEntity.noContent().build();
 	}
 }
