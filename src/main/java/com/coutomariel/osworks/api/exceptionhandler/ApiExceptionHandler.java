@@ -1,6 +1,6 @@
 package com.coutomariel.osworks.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		var problema = new Problema();
 		problema.setStatus(status.value());
 		problema.setTitulo(ex.getMessage());;
-		problema.setDataHora(LocalDateTime.now());
+		problema.setDataHora(OffsetDateTime.now());
 		
 		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
 	}
@@ -56,7 +56,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		problema.setStatus(status.value());
 		problema.setTitulo("Uma ou mais campos estão inválidos");
-		problema.setDataHora(LocalDateTime.now());
+		problema.setDataHora(OffsetDateTime.now());
 		problema.setCampos(campos);
 		
 		return super.handleExceptionInternal(ex, problema, headers, status, request);

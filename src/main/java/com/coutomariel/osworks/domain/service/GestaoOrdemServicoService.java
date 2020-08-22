@@ -1,6 +1,6 @@
 package com.coutomariel.osworks.domain.service;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class GestaoOrdemServicoService {
 				.orElseThrow(() -> new NegocioException("Cliente não encontrado!"));
 		
 		os.setCliente(cliente);
-		os.setDataAbertura(LocalDateTime.now());
+		os.setDataAbertura(OffsetDateTime.now());
 		os.setStatus(StatusOrdemServico.ABERTA);
 
 		return ordemServicoRepository.save(os);
