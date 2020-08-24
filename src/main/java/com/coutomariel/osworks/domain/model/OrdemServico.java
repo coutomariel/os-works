@@ -21,6 +21,7 @@ import javax.validation.groups.Default;
 
 import com.coutomariel.osworks.api.model.Comentario;
 import com.coutomariel.osworks.domain.ValidationGroups;
+import com.coutomariel.osworks.domain.exception.NegocioException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -121,6 +122,22 @@ public class OrdemServico {
 
 	public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
+	}
+
+	public boolean podeSerFinalizada() {
+		return StatusOrdemServico.ABERTA.equals(getStatus()); 
+	}
+	
+	public boolean naoPodeSerFinalizada() {
+		return !podeSerFinalizada();
+	}
+	
+	public void finalizar() {
+		if(naoPodeSerFinalizada()) {
+			throw new NegocioException("OS não pode ser fechada!");
+		}
+		setStatus(StatusOrdemServico.FINALIZADA);
+		setDataFinalizacao(OffsetDateTime.now());
 	}
 	
 	

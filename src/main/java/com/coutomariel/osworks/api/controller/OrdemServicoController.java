@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -37,6 +38,9 @@ public class OrdemServicoController {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private GestaoOrdemServicoService gestaoOrdemServicoService;
+
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public OrdemServicoModel salvar(@Valid @RequestBody OrdemServicoInput os) {
@@ -55,6 +59,12 @@ public class OrdemServicoController {
 			return ResponseEntity.ok(toModel(os.get()));
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@PutMapping("/{osId}/finalizar")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable Long osId) {
+		 gestaoOrdemServicoService.finalizar(osId);
 	}
 
 //	Métodos de para conversão de dtos
