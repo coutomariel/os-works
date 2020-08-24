@@ -4,7 +4,7 @@ public class OrdemServicoInput {
 
 	private String descricao;
 	private String preco;
-	private ClienteIdImput cliente;
+	private ClienteIdInput cliente;
 
 	public String getDescricao() {
 		return descricao;
@@ -22,11 +22,11 @@ public class OrdemServicoInput {
 		this.preco = preco;
 	}
 
-	public ClienteIdImput getCliente() {
+	public ClienteIdInput getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(ClienteIdImput cliente) {
+	public void setCliente(ClienteIdInput cliente) {
 		this.cliente = cliente;
 	}
 

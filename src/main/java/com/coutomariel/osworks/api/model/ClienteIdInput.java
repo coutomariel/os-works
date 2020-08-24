@@ -1,6 +1,6 @@
 package com.coutomariel.osworks.api.model;
 
-public class ClienteIdImput {
+public class ClienteIdInput {
 
 	private Long id;
 
