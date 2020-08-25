@@ -25,8 +25,12 @@ import com.coutomariel.osworks.domain.model.OrdemServico;
 import com.coutomariel.osworks.domain.repository.OrdemServicoRepository;
 import com.coutomariel.osworks.domain.service.GestaoOrdemServicoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping("/ordens-servico")
+@RequestMapping("/api/v1/ordens-servico")
+@Api(value="OrdemServico")
 public class OrdemServicoController {
 
 	@Autowired
@@ -48,6 +52,7 @@ public class OrdemServicoController {
 	}
 
 	@GetMapping
+	@ApiOperation(value="Mostra a lista de ordens de serviço")
 	public List<OrdemServicoModel> listar() {
 		return toCollectionDto(osRepository.findAll());
 	}
